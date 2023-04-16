@@ -8,36 +8,39 @@ package pattern
 
 // Объект для строительства
 type House struct {
-	size  string
-	color string
+	Size  string
+	Color string
 }
 
 // Интерфейс строителя объявляет все возможные этапы и шаги по строительству дома
 type Builder interface {
-	setSize(size string)
-	setColor(color string)
-	// build() House
+	setSize(size string) HouseBuilder
+	setColor(color string) HouseBuilder
+	build() House
 }
 
 // Все конкретные строители реализуют общий интерфейс по своему
 type HouseBuilder struct {
-	house House
+	size  string
+	color string
 }
 
-func (b *HouseBuilder) setSize(size string) {
-	b.house.size = size
+func (b HouseBuilder) setSize(size string) HouseBuilder {
+	b.size = size
+	return b
 }
 
-func (b *HouseBuilder) setColor(color string) {
-	b.house.color = color
+func (b HouseBuilder) setColor(color string) HouseBuilder {
+	b.color = color
+	return b
 }
 
-// func (b *HouseBuilder) build() House {
-// 	return House{
-// 		size:  b.house.size,
-// 		color: b.house.size,
-// 	}
-// }
+func (b HouseBuilder) build() House {
+	return House{
+		Size:  b.size,
+		Color: b.color,
+	}
+}
 
 // Директор знает в какой последовательности нужно заставлять работать строителя, чтобы получить ту или иную версию дома
 type director struct {
@@ -47,17 +50,14 @@ type director struct {
 func (d *director) constructHouse(size string, color string) House {
 	d.builder.setColor(color)
 	d.builder.setSize(size)
-	return d.builder.house
+	return d.builder.build()
 }
 
 // func main() {
 // 	// Создаем объект структуры на строителя дома
 // 	builder := HouseBuilder{}
-// 	// Cоздаем дом который будет строится через абстрактного строителя
-// 	// house := builder.setSize("large").setColor("blue").build
-// 	builder.setColor("size")
-// 	builder.setSize("large")
-// 	house := builder.build()
+// 	house := builder.setColor("red").setSize("large").build
+
 // 	fmt.Println(house)
 
 // }
