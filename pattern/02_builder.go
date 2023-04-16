@@ -48,11 +48,12 @@ type director struct {
 }
 
 func (d *director) constructHouse(size string, color string) House {
-	d.builder.setColor(color)
-	d.builder.setSize(size)
+	d.builder = d.builder.setColor(color)
+	d.builder = d.builder.setSize(size)
 	return d.builder.build()
 }
 
+// Реализация без директора
 // func main() {
 // 	// Создаем объект структуры на строителя дома
 // 	builder := HouseBuilder{}
@@ -60,4 +61,11 @@ func (d *director) constructHouse(size string, color string) House {
 
 // 	fmt.Println(house)
 
+// }
+
+// Реализация с директором
+// func main() {
+// 	builder := HouseBuilder{}
+// 	director := director{builder}
+// 	fmt.Println(director.constructHouse("large", "red"))
 // }
