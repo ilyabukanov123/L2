@@ -28,13 +28,13 @@ func (Bmw) accept(v visitor) {
 }
 
 func (Audi) accept(v visitor) {
-	v.serviceAuid()
+	v.serviceAudi()
 }
 
 type visitor interface {
 	serviceTesla()
 	serviceBmw()
-	serviceAuid()
+	serviceAudi()
 }
 
 type mechanic struct{}
@@ -50,3 +50,10 @@ func (mechanic) serviceBmw() {
 func (mechanic) serviceAudi() {
 	fmt.Println("Обслуживание Audi")
 }
+
+// func main() {
+// 	cars := []Car{Tesla{}, Bmw{}, Audi{}}
+// 	for _, e := range cars {
+// 		e.accept(mechanic{})
+// 	}
+// }
