@@ -1,5 +1,11 @@
 package main
 
+import (
+	"time"
+
+	"github.com/beevik/ntp"
+)
+
 /*
 === Базовая задача ===
 
@@ -12,6 +18,15 @@ package main
 Программа должна проходить проверки go vet и golint.
 */
 
-func main() {
-
+// Возвращаем текущее время и ошибку
+func NtpTime(timezone string) (time.Time, error) {
+	// Получаем текущее время с учетом расположения
+	response, err := ntp.Query(timezone)
+	if err != nil {
+		// Если ошибка произошла возвращаем текущее время и саму ошибку
+		return time.Now(), err
+	}
+	// Если ошибка не произошла преобразуем все во время edewq
+	// ClockOffset: Предполагаемое смещение часов локальной системы относительно часов сервера. Для более точного считывания времени вы можете добавить это смещение к любым последующим показаниям системных часов.
+	return time.Now().Add(response.ClockOffset), nil
 }
