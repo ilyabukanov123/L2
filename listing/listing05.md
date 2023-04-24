@@ -3,6 +3,11 @@
 ```go
 package main
 
+
+// type ERROR interface {
+// 	Error() string
+// }
+
 type customError struct {
 	msg string
 }
@@ -23,6 +28,7 @@ func main() {
 	err = test()
 	if err != nil {
 		println("error")
+
 		return
 	}
 	println("ok")
@@ -31,6 +37,7 @@ func main() {
 
 Ответ:
 ```
-...
+Выведется error
+Тоже самое что и в 3
 
 ```

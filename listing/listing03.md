@@ -22,6 +22,8 @@ func main() {
 
 Ответ:
 ```
-...
+os.PathError nill
+false
+Так как из Foo возвращается типизированный nil, то он не будет равен nil без типа. Чтобы получить true, нужно привести nil к (*os.PathError)(nil)
 
 ```
