@@ -1,5 +1,10 @@
 package main
 
+import (
+	"sort"
+	"strings"
+)
+
 /*
 === Поиск анаграмм по словарю ===
 
@@ -18,6 +23,39 @@ package main
 
 Программа должна проходить все тесты. Код должен проходить проверки go vet и golint.
 */
+
+func makeRaw(val string) string {
+	letters := strings.Split(val, "")
+	sort.Strings(letters)
+	return strings.Join(letters, "")
+}
+
+func sortedAppend(ss []string, s string) []string {
+	i := sort.SearchStrings(ss, s)
+	ss = append(ss, "")
+	copy(ss[i+1:], ss[i:])
+	ss[i] = s
+	return ss
+}
+
+// FindAnagrams searches anagrams in a slice.
+func FindAnagrams(slice []string) map[string][]string {
+	result := make(map[string][]string)
+	var keys []string
+f1:
+	for _, v := range slice {
+		word := strings.ToLower(v)
+		for _, key := range keys {
+			if makeRaw(word) == makeRaw(key) {
+				result[key] = sortedAppend(result[key], strings.ToLower(word))
+				continue f1
+			}
+		}
+		keys = append(keys, v)
+	}
+
+	return result
+}
 
 func main() {
 
