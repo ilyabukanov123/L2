@@ -1,5 +1,7 @@
 package main
 
+import "L2/develop/dev10/cmd"
+
 /*
 === Утилита telnet ===
 
@@ -16,5 +18,5 @@ go-telnet --timeout=10s host port go-telnet mysite.ru 8080 go-telnet --timeout=3
 */
 
 func main() {
-
+	cmd.Execute()
 }
